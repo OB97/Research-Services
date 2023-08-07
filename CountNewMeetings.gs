@@ -9,10 +9,14 @@
 // Executes on edit
 function onEdit(e) {
   var sh = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+
+  // format dates (using date picker changes font for some reason)
+  sh.getRange(5,2,sh.getMaxRows()).setFontFamily("Arial").setFontSize(10);
+
   var curCell = sh.getActiveCell();
-  var data = initialiaze(sh, curCell);
-  var quarters = data.quarter;
-  var clients = data.client;
+  const data = initialize(sh, curCell);
+  const quarters = data.quarter;
+  const clients = data.client;
   var q = getQuarter(sh, quarters, curCell);
 
   if (e.value == null){
@@ -32,10 +36,6 @@ function onEdit(e) {
       updateQuarterTotal(q, -1);
     }
   }
-
-  // format dates (using date picker changes text font for some reason)
-  sh.getRange(5,2,sh.getMaxRows()).setFontFamily("Arial").setFontSize(10);
-
 }
 
 // CONSTRUCTOR //
@@ -43,7 +43,7 @@ function onEdit(e) {
 // @params: active sheet, active cell
 // @return: {quarter object, client object}
 // Sets up data to reference in the main function
-function initialiaze(sh, cell){
+function initialize(sh, cell){
 
   var client = {
     cName: sh.getRange(cell.getRow(), 4).getValue(),
@@ -135,34 +135,8 @@ function initialiaze(sh, cell){
 // @return: quarter child object or null
 // Takes in the active cell and returns which quarter was edited, or null
 function getQuarter(sh, quarters, cell) {
-  switch(sh.getRange(2, cell.getColumn()).getValue()){
-    case "Q1":
-      return quarters.quarter1;
-    case "Q2":
-      return quarters.quarter2;
-    case "Q3":
-      return quarters.quarter3;
-    case "Q4":
-      return quarters.quarter4;
-    case "Q5":
-      return quarters.quarter5;
-    case "Q6":
-      return quarters.quarter6;
-    case "Q7":
-      return quarters.quarter7;
-    case "Q8":
-      return quarters.quarter8;
-    case "Q9":
-      return quarters.quarter9;
-    case "Q10":
-      return quarters.quarter10;
-    case "Q11":
-      return quarters.quarter11;
-    case "Q12":
-      return quarters.quarter12;
-    default:
-      return null;
-  }
+  const quarterId = sh.getRange(2, cell.getColumn()).getValue();
+  return quarters["quarter" + quarterId.substring(1)];
 }
 
 // @params: quarter object, increment value
