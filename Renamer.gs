@@ -3,8 +3,6 @@
 
 // Variables
 let ourSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-let mainSheet = ourSpreadsheet.getSheetByName("main sheet");
-let subSheet = ourSpreadsheet.getSheetByName("sub sheet");
 let folderId = "1qkc0PAf6xk_42X6vYN5O4ZmgWNnG_FSM"; // in this case, this folder is a grandparent to what we want to edit
 
 // Function for performing batch changes to Google Drive folders
