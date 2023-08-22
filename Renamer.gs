@@ -30,6 +30,6 @@ function mainFunction() {
 function renameFoldersFunction(folderId) {
 
   var curFolder = DriveApp.getFolderById(folderId);
-  curFolder.setName("OSR - " + curFolder.getName())
+  curFolder.setName("ORS - " + curFolder.getName())
   
 }
