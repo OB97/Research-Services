@@ -2,175 +2,160 @@
 // UPEI Research Services: SpringBoard requires metrics on the number of researcher, company, and industry meetings/events
 // By: Alex O'Brien
 
+// MAIN //
+
+// @params: event
+// @return: none
+// Executes on edit
 function onEdit(e) {
-
-  // DEFINITIONS: Could be a waste to save everything on each edit, but I feel the excess computing is arbitrary //
-
-  // define active sheet
   var sh = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
 
-  // define current cell coordinates
-  var curCell = sh.getCurrentCell();
-  var curRow = curCell.getRow();
-  var curCol = curCell.getColumn();
-  var cellValue = curCell.getValue();
-
-  // reference each cell containing new meeting tally
-  const newQ1 = sh.getRange("I4");
-  const newQ2 = sh.getRange("M4");
-  const newQ3 = sh.getRange("Q4");
-  const newQ4 = sh.getRange("U4");
-  const newQ5 = sh.getRange("Y4");
-  const newQ6 = sh.getRange("AC4");
-  const newQ7 = sh.getRange("AG4");
-  const newQ8 = sh.getRange("AK4");
-  const newQ9 = sh.getRange("AO4");
-  const newQ10 = sh.getRange("AS4");
-  const newQ11 = sh.getRange("AW4");
-  const newQ12 = sh.getRange("BA4");
-  
-  // invisible meeting counter (Column A)
-  var numMeetings = sh.getRange(curRow, 1).getValue();
-
-  // store dates
-  var addedDate = sh.getRange(curRow, 2).getValue();
-  const q1Start = new Date("april 1 2023");
-  const q2Start = new Date("july 1 2023");
-  const q3Start = new Date("october 1 2023");
-  const q4Start = new Date("january 1 2024");
-  const q5Start = new Date("april 1 2024");
-  const q6Start = new Date("july 1 2024");
-  const q7Start = new Date("october 1 2024");
-  const q8Start = new Date("january 1 2025");
-  const q9Start = new Date("april 1 2025");
-  const q10Start = new Date("july 1 2025");
-  const q11Start = new Date("october 1 2025");
-  const q12Start = new Date("january 1 2026");
-
-  // SECTION 1: Info Section is Sheet Dependent //
-
-  // if on any sheet that uses "Added By" column
-  if(sh.getName() == "Spin Off or Startup from the Institution w/o IP Assignment" || sh.getName() == "Total Companies Engaged" || sh.getName() == "Supporting Start-ups/Scale-ups" ||
-    sh.getName() == "Ecosystem Partnerships and Projects" || sh.getName() == "Committees & Boards Supported by Members" || sh.getName() == "Network members Collaboration and Support" || sh.getName() == "Joint Network Member Events" || sh.getName() == "Workshops with Industry" || sh.getName() == "Inter-Member Collaborations"){
-
-    // if editing company info
-    if(curRow >= 5 && curCol >= 2 && curCol <= 4){
-      if(sh.getRange(curRow, 4).getValue() != ""){sh.getRange(curRow, 3).setValue(Session.getActiveUser().getEmail());}
-      else{sh.getRange(curRow, 3).setValue("");}
-    }
-  }
-
-  // if on faculty engagements sheet
-  if(sh.getName() == "Total Engagement with Faculty/Staff/Students"){
-    // if editing researcher info
-    if(curRow >= 5 && curCol >= 2 && curCol <= 4){
-      if(sh.getRange(curRow, 4).getValue() != ""){
-        sh.getRange(curRow, 3).setValue("Faculty");
-      }
-    }
-  }
-
-  // SECTION 2: Data Section is Sheet Independent //
-
-  // edited cell in Q1
-  if(curCol >= 6 && curCol <= 8 && curRow >= 5 && addedDate.valueOf() >= q1Start.valueOf() && addedDate.valueOf() < q2Start.valueOf()){
-    if(cellValue == "" && numMeetings == 0){
-      if(newQ1.getValue() >= 1){newQ1.setValue(newQ1.getValue()-1);}
-    }
-    else if(cellValue != "" && numMeetings == 1){newQ1.setValue(newQ1.getValue()+1);}
-  }
-
-  // edited cell in Q2
-  if(curCol >= 10 && curCol <= 12 && curRow >= 5 && addedDate.valueOf() >= q2Start.valueOf() && addedDate.valueOf() < q3Start.valueOf()){
-    if(cellValue == "" && numMeetings == 0){
-      if(newQ2.getValue() >= 1){newQ2.setValue(newQ2.getValue()-1);}
-    }
-    else if(cellValue != "" && numMeetings == 1){newQ2.setValue(newQ2.getValue()+1);}
-  }
-
-  // edited cell in Q3
-  if(curCol >= 14 && curCol <= 16 && curRow >= 5 && addedDate.valueOf() >= q3Start.valueOf() && addedDate.valueOf() < q4Start.valueOf()){
-    if(cellValue == "" && numMeetings == 0){
-      if(newQ3.getValue() >= 1){newQ3.setValue(newQ3.getValue()-1);}
-    }
-    else if(cellValue != "" && numMeetings == 1){newQ3.setValue(newQ3.getValue()+1);}
-  }
-
-  // edited cell in Q4
-  if(curCol >= 18 && curCol <= 20 && curRow >= 5 && addedDate.valueOf() >= q4Start.valueOf() && addedDate.valueOf() < q5Start.valueOf()){
-    if(cellValue == "" && numMeetings == 0){
-      if(newQ4.getValue() >= 1){newQ4.setValue(newQ4.getValue()-1);}
-    }
-    else if(cellValue != "" && numMeetings == 1){newQ4.setValue(newQ4.getValue()+1);}
-  }
-
-  // edited cell in Q5
-  if(curCol >= 22 && curCol <= 24 && curRow >= 5 && addedDate.valueOf() >= q5Start.valueOf() && addedDate.valueOf() < q6Start.valueOf()){
-    if(cellValue == "" && numMeetings == 0){
-      if(newQ5.getValue() >= 1){newQ5.setValue(newQ5.getValue()-1);}
-    }
-    else if(cellValue != "" && numMeetings == 1){newQ5.setValue(newQ5.getValue()+1);}
-  }
-
-  // edited cell in Q6
-  if(curCol >= 26 && curCol <= 28 && curRow >= 5 && addedDate.valueOf() >= q6Start.valueOf() && addedDate.valueOf() < q7Start.valueOf()){
-    if(cellValue == "" && numMeetings == 0){
-      if(newQ6.getValue() >= 1){newQ6.setValue(newQ6.getValue()-1);}
-    }
-    else if(cellValue != "" && numMeetings == 1){newQ6.setValue(newQ6.getValue()+1);}
-  }
-
-  // edited cell in Q7
-  if(curCol >= 30 && curCol <= 32 && curRow >= 5 && addedDate.valueOf() >= q7Start.valueOf() && addedDate.valueOf() < q8Start.valueOf()){
-    if(cellValue == "" && numMeetings == 0){
-      if(newQ7.getValue() >= 1){newQ7.setValue(newQ7.getValue()-1);}
-    }
-    else if(cellValue != "" && numMeetings == 1){newQ7.setValue(newQ7.getValue()+1);}
-  }
-
-  // edited cell in Q8
-  if(curCol >= 34 && curCol <= 36 && curRow >= 5 && addedDate.valueOf() >= q8Start.valueOf() && addedDate.valueOf() < q9Start.valueOf()){
-    if(cellValue == "" && numMeetings == 0){
-      if(newQ8.getValue() >= 1){newQ8.setValue(newQ8.getValue()-1);}
-    }
-    else if(cellValue != "" && numMeetings == 1){newQ8.setValue(newQ8.getValue()+1);}
-  }
-
-  // edited cell in Q9
-  if(curCol >= 38 && curCol <= 40 && curRow >= 5 && addedDate.valueOf() >= q9Start.valueOf() && addedDate.valueOf() < q10Start.valueOf()){
-    if(cellValue == "" && numMeetings == 0){
-      if(newQ9.getValue() >= 1){newQ9.setValue(newQ9.getValue()-1);}
-    }
-    else if(cellValue != "" && numMeetings == 1){newQ9.setValue(newQ9.getValue()+1);}
-  }
-
-  // edited cell in Q10
-  if(curCol >= 42 && curCol <= 44 && curRow >= 5 && addedDate.valueOf() >= q10Start.valueOf() && addedDate.valueOf() < q11Start.valueOf()){
-    if(cellValue == "" && numMeetings == 0){
-      if(newQ10.getValue() >= 1){newQ10.setValue(newQ10.getValue()-1);}
-    }
-    else if(cellValue != "" && numMeetings == 1){newQ10.setValue(newQ10.getValue()+1);}
-  }
-
-  // edited cell in Q11
-  if(curCol >= 46 && curCol <= 48 && curRow >= 5 && addedDate.valueOf() >= q11Start.valueOf() && addedDate.valueOf() < q12Start.valueOf()){
-    if(cellValue == "" && numMeetings == 0){
-      if(newQ11.getValue() >= 1){newQ11.setValue(newQ11.getValue()-1);}
-    }
-    else if(cellValue != "" && numMeetings == 1){newQ11.setValue(newQ11.getValue()+1);}
-  }
-
-  // edited cell in Q12
-  if(curCol >= 50 && curCol <= 52 && curRow >= 5 && addedDate.valueOf() >= q12Start.valueOf()){
-    if(cellValue == "" && numMeetings == 0){
-      if(newQ12.getValue() >= 1){newQ12.setValue(newQ12.getValue()-1);}
-    }
-    else if(cellValue != "" && numMeetings == 1){newQ12.setValue(newQ12.getValue()+1);}
-  }
-
-  // format dates (using date picker changes text font for some reason)
+  // format dates (using date picker changes font for some reason)
   sh.getRange(5,2,sh.getMaxRows()).setFontFamily("Arial").setFontSize(10);
 
-  return;
+  var curCell = sh.getActiveCell();
+  const data = initialize(sh, curCell);
+  const quarters = data.quarter;
+  const clients = data.client;
+  var q = getQuarter(sh, quarters, curCell);
 
+  if (e.value == null){
+    var action = "del"
+  }
+  else{
+    var action = "add"
+  }
+
+  if(action == "add"){
+    if(dateCompare(clients.cDate, q.qStart, q.qEnd) && clients.cMeetingsCount == 1){
+      updateQuarterTotal(q, 1);
+    }
+  }
+  else{
+    if(dateCompare(clients.cDate, q.qStart, q.qEnd) && clients.cMeetingsCount == 0 && q.qTotal.getValue() >= 1){
+      updateQuarterTotal(q, -1);
+    }
+  }
+}
+
+// CONSTRUCTOR //
+
+// @params: active sheet, active cell
+// @return: {quarter object, client object}
+// Sets up data to reference in the main function
+function initialize(sh, cell){
+
+  var client = {
+    cName: sh.getRange(cell.getRow(), 4).getValue(),
+    cDate: sh.getRange(cell.getRow(), 2).getValue(),
+    cDetail: sh.getRange(cell.getRow(), 3).getValue(),
+    cMeetingsCount: sh.getRange(cell.getRow(), 1).getValue()
+  };
+
+  var quarter = {
+    quarter1 : {
+      qStart : new Date("april 1 2023"),
+      qEnd : new Date("june 30 2023"),
+      qTotal : sh.getRange("I4"),
+      qRange : sh.getRange("F5:H1000")
+    },
+    quarter2 : {
+      qStart : new Date("july 1 2023"),
+      qEnd : new Date("september 30 2023"),
+      qTotal : sh.getRange("M4"),
+      qRange : sh.getRange("J5:L1000")
+    },
+    quarter3 : {
+      qStart : new Date("october 1 2023"),
+      qEnd : new Date("december 31 2023"),
+      qTotal : sh.getRange("Q4"),
+      qRange : sh.getRange("N5:P1000")
+    },
+    quarter4 : {
+      qStart : new Date("january 1 2024"),
+      qEnd : new Date("march 31 2024"),
+      qTotal : sh.getRange("U4"),
+      qRange : sh.getRange("R5:T1000")
+    },
+    quarter5 : {
+      qStart : new Date("april 1 2024"),
+      qEnd : new Date("june 30 2024"),
+      qTotal : sh.getRange("Y4"),
+      qRange : sh.getRange("V5:X1000")
+    },
+    quarter6 : {
+      qStart : new Date("july 1 2024"),
+      qEnd : new Date("september 30 2024"),
+      qTotal : sh.getRange("AC4"),
+      qRange : sh.getRange("Z5:AB1000")
+    },
+    quarter7 : {
+      qStart : new Date("october 1 2024"),
+      qEnd : new Date("december 31 2024"),
+      qTotal : sh.getRange("AG4"),
+      qRange : sh.getRange("AD5:AF1000")
+    },
+    quarter8 : {
+      qStart : new Date("january 1 2025"),
+      qEnd : new Date("march 31 2025"),
+      qTotal : sh.getRange("AK4"),
+      qRange : sh.getRange("AH5:AJ1000")
+    },
+    quarter9 : {
+      qStart : new Date("april 1 2025"),
+      qEnd : new Date("june 30 2025"),
+      qTotal : sh.getRange("AO4"),
+      qRange : sh.getRange("AL5:AN1000")
+    },
+    quarter10 : {
+      qStart : new Date("july 1 2025"),
+      qEnd : new Date("september 30 2025"),
+      qTotal : sh.getRange("AS4"),
+      qRange : sh.getRange("AP5:AR1000")
+    },
+    quarter11 : {
+      qStart : new Date("october 1 2025"),
+      qEnd : new Date("december 31 2025"),
+      qTotal : sh.getRange("AW4"),
+      qRange : sh.getRange("AT5:AV1000")
+    },
+    quarter12 : {
+      qStart : new Date("january 1 2026"),
+      qEnd : new Date("march 31 2026"),
+      qTotal : sh.getRange("BA4"),
+      qRange : sh.getRange("AX5:AZ1000")
+    }
+  };
+  return {quarter, client};
+}
+
+// UTILITY FUNCTIONS //
+
+// @params: active sheet, quarters, active cell
+// @return: quarter child object or null
+// Takes in the active cell and returns which quarter was edited, or null
+function getQuarter(sh, quarters, cell) {
+  const quarterId = sh.getRange(2, cell.getColumn()).getValue();
+  return quarters["quarter" + quarterId.substring(1)];
+}
+
+// @params: quarter object, increment value
+// @return: none
+// Updates the quarter's total with the given increment value
+function updateQuarterTotal(quarter, incrementValue) {
+  var totalCell = quarter.qTotal;
+  var currentTotal = totalCell.getValue();
+  totalCell.setValue(currentTotal + incrementValue);
+}
+
+// @params: input date, start date, end date
+// @return: bool
+// Takes in an input date, and returns whether or not it falls within the input quarter
+function dateCompare(inD, qD1, qD2) {
+  if (inD.valueOf() >= qD1.valueOf() && inD.valueOf() < qD2.valueOf()){
+    return true;
+  } 
+  else{
+    return false;
+  }
 }
